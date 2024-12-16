@@ -1,12 +1,18 @@
 const db = require("./personal_information");
-
+const MenuRouter = require("./routes/drinks");
+const UserRouter = require("./routes/users");
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 
 const app = express();
+const PORT = 5000;
+
+//미들웨어
 app.use(cors());
 app.use(express.json());
+app.use("/api/menus", MenuRouter);
+app.use("/api/users", UserRouter);
 
 db.connect((err) => {
   if (err) {
@@ -16,7 +22,6 @@ db.connect((err) => {
   console.log("MySQL에 성공적으로 연결됨");
 });
 
-db.query("SELECT * FROM drinks", function (error, results, fields) {
-  if (error) throw error;
-  console.log("drinks: ", results);
+app.listen(PORT, () => {
+  console.log(`Server on ${PORT}!`);
 });
