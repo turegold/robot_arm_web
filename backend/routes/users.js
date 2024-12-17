@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../personal_information");
 
-// 음료 목록 조회
+// 유저 목록 조회
 router.get("/", (req, res) => {
   db.query("SELECT * FROM users", function (error, results) {
     if (error) {
